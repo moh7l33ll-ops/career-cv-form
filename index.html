@@ -390,47 +390,35 @@
         setLanguage('en');
 
         document.getElementById('cvForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const loading = document.getElementById('loading');
-    const success = document.getElementById('success');
-    const button = document.querySelector('.submit-btn');
-    
-    loading.style.display = 'block';
-    success.style.display = 'none';
-    button.disabled = true;
-    
-    const formData = new FormData(this);
-    
-    try {
-        const response = await fetch('https://n8n.srv1531563.hstgr.cloud/webhook/career-cv-job-match', {
-            method: 'POST',
-            body: formData
-        });
-        
-        const result = await response.json();
-        
-        loading.style.display = 'none';
-        
-        if (result.status === 'success' || response.ok) {
-            success.style.display = 'block';
-            // Clear form after success
-            this.reset();
-        } else {
-            alert('Error: ' + (result.message || 'Something went wrong'));
-        }
-        
-        button.disabled = false;
-        
-    } catch (error) {
-        loading.style.display = 'none';
-        alert('Error: ' + error.message);
-        button.disabled = false;
-    }
-});
+            e.preventDefault();
+            
+            const loading = document.getElementById('loading');
+            const success = document.getElementById('success');
+            const button = document.querySelector('.submit-btn');
+            
+            loading.style.display = 'block';
+            success.style.display = 'none';
+            button.disabled = true;
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('https://n8n.srv1531563.hstgr.cloud/webhook/career-cv-job-match', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
                 
                 loading.style.display = 'none';
-                success.style.display = 'block';
+                
+                if (result.status === 'success' || response.ok) {
+                    success.style.display = 'block';
+                    this.reset();
+                } else {
+                    alert('Error: ' + (result.message || 'Something went wrong'));
+                }
+                
                 button.disabled = false;
                 
             } catch (error) {
