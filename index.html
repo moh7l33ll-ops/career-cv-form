@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career CV - تقرير مطابقة الوظيفة</title>
+    <title>Career CV - Job Match Report</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Poppins', 'Cairo', sans-serif;
             background: linear-gradient(135deg, #1a5f2a 0%, #2d8a4e 50%, #3d9b5f 100%);
             color: #1e293b;
             min-height: 100vh;
@@ -28,11 +28,46 @@
             width: 100%;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
             border: 3px solid #c9a84c;
+            position: relative;
+        }
+        
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .lang-switch button {
+            width: auto;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid #c9a84c;
+            background: white;
+            color: #1a5f2a;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', 'Cairo', sans-serif;
+        }
+        
+        .lang-switch button.active {
+            background: linear-gradient(135deg, #1a5f2a, #c9a84c);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .lang-switch button:hover:not(.active) {
+            background: #f0fdf4;
         }
         
         .logo {
             text-align: center;
             margin-bottom: 30px;
+            margin-top: 20px;
         }
         
         .logo img {
@@ -88,7 +123,7 @@
             background: #f8fafc;
             color: #1e293b;
             font-size: 1em;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Poppins', 'Cairo', sans-serif;
             transition: all 0.3s;
         }
         
@@ -109,7 +144,7 @@
             color: #94a3b8;
         }
         
-        button {
+        .submit-btn {
             width: 100%;
             padding: 18px;
             border-radius: 15px;
@@ -120,10 +155,10 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Poppins', 'Cairo', sans-serif;
         }
         
-        button:hover {
+        .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px -5px rgba(201, 168, 76, 0.4);
         }
@@ -153,22 +188,59 @@
             border-top: 2px solid #c9a84c;
         }
         
-        .footer .contact {
-            color: #1a5f2a;
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            font-size: 1em;
             font-weight: 700;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-        }
-        
-        .footer .contact a {
-            color: #c9a84c;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', 'Cairo', sans-serif;
             text-decoration: none;
+            margin-bottom: 15px;
         }
         
-        .footer .info {
-            color: #64748b;
-            font-size: 0.9em;
-            margin-bottom: 5px;
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.4);
+        }
+        
+        .whatsapp-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        .flags {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .flag {
+            width: 40px;
+            height: 30px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+        
+        .flag:hover {
+            transform: scale(1.1);
+        }
+        
+        .flag svg {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
         
         .footer .legal {
@@ -193,55 +265,105 @@
         .social-links a:hover {
             color: #c9a84c;
         }
+        
+        [dir="rtl"] body {
+            font-family: 'Cairo', 'Poppins', sans-serif;
+        }
+        
+        [dir="rtl"] .lang-switch {
+            left: auto;
+            right: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
+        <div class="lang-switch">
+            <button class="lang-btn active" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="ar">العربية</button>
+        </div>
+        
         <div class="logo">
             <img src="sama.jpg" alt="Career CV Logo">
             <h1>Career CV</h1>
-            <p>تقرير مطابقة الوظيفة</p>
+            <p data-i18n="title">Job Match Report</p>
         </div>
         
-        <p class="subtitle">
+        <p class="subtitle" data-i18n="subtitle">
             CV & Recruitment Services ✍️<br>
             Helping you stand out professionally 🌟
         </p>
         
         <form id="cvForm" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="email">البريد الإلكتروني</label>
+                <label for="email" data-i18n="email_label">Email</label>
                 <input type="email" id="email" name="customer_email" placeholder="your@email.com" required>
             </div>
             
             <div class="form-group">
-                <label for="job_description">وصف الوظيفة</label>
-                <textarea id="job_description" name="job_description" placeholder="الصق وصف الوظيفة هنا..." required></textarea>
+                <label for="job_description" data-i18n="job_label">Job Description</label>
+                <textarea id="job_description" name="job_description" placeholder="Paste the job description here..." data-i18n-placeholder="job_placeholder" required></textarea>
             </div>
             
             <div class="form-group">
-                <label for="resume">رفع السيرة الذاتية (PDF/DOCX)</label>
+                <label for="resume" data-i18n="resume_label">Upload Resume (PDF/DOCX)</label>
                 <input type="file" id="resume" name="resume" accept=".pdf,.docx" required>
             </div>
             
-            <button type="submit">إنشاء التقرير</button>
+            <button type="submit" class="submit-btn" data-i18n="submit_btn">Generate Report</button>
             
-            <div class="loading" id="loading">
-                ⏳ جاري تحليل سيرتك الذاتية... الرجاء الانتظار
+            <div class="loading" id="loading" data-i18n="loading">
+                ⏳ Analyzing your resume... Please wait
             </div>
             
-            <div class="success" id="success">
-                ✅ تم إرسال التقرير إلى بريدك الإلكتروني!
+            <div class="success" id="success" data-i18n="success">
+                ✅ The report has been sent to your email!
             </div>
         </form>
         
         <div class="footer">
-            <div class="contact">
-                📞 <a href="https://wa.me/971545136410" target="_blank">+971 54 513 6410</a>
+            <a href="https://wa.me/971545136410" target="_blank" class="whatsapp-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                <span data-i18n="whatsapp">Send Message</span>
+            </a>
+            
+            <div class="flags">
+                <div class="flag" title="Saudi Arabia">
+                    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="900" height="600" fill="#006C35"/>
+                        <text x="450" y="320" font-size="180" fill="white" text-anchor="middle" font-family="serif">لا إله إلا الله محمد رسول الله</text>
+                        <path d="M 150,150 L 250,150 L 200,250 Z" fill="white"/>
+                        <path d="M 200,100 L 220,180 L 300,180 L 235,230 L 260,310 L 200,260 L 140,310 L 165,230 L 100,180 L 180,180 Z" fill="white"/>
+                    </svg>
+                </div>
+                <div class="flag" title="UAE">
+                    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="900" height="600" fill="white"/>
+                        <rect x="0" y="0" width="225" height="600" fill="#00732F"/>
+                        <rect x="225" y="0" width="675" height="200" fill="black"/>
+                        <rect x="225" y="200" width="675" height="200" fill="#FF0000"/>
+                        <rect x="225" y="400" width="675" height="200" fill="#00732F"/>
+                    </svg>
+                </div>
+                <div class="flag" title="Egypt">
+                    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="900" height="200" fill="#CE1126"/>
+                        <rect y="200" width="900" height="200" fill="white"/>
+                        <rect y="400" width="900" height="200" fill="black"/>
+                        <path d="M 450,250 L 465,290 L 510,290 L 475,315 L 490,355 L 450,330 L 410,355 L 425,315 L 390,290 L 435,290 Z" fill="#C09300"/>
+                    </svg>
+                </div>
+                <div class="flag" title="Qatar">
+                    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="900" height="600" fill="#8D1B3D"/>
+                        <path d="M 0,0 L 360,0 L 360,600 L 0,600 Z" fill="white"/>
+                        <path d="M 0,0 L 270,0 L 360,75 L 270,150 L 360,225 L 270,300 L 360,375 L 270,450 L 360,525 L 270,600 L 0,600 Z" fill="#8D1B3D"/>
+                    </svg>
+                </div>
             </div>
-            <div class="info">
-                الفرع المصري 🇪🇬
-            </div>
+            
             <div class="legal">
                 CR: 30802 | TRN: 773-323-384
             </div>
@@ -254,12 +376,73 @@
     </div>
 
     <script>
+        const translations = {
+            en: {
+                title: "Job Match Report",
+                subtitle: "CV & Recruitment Services ✍️<br>Helping you stand out professionally 🌟",
+                email_label: "Email",
+                job_label: "Job Description",
+                job_placeholder: "Paste the job description here...",
+                resume_label: "Upload Resume (PDF/DOCX)",
+                submit_btn: "Generate Report",
+                loading: "⏳ Analyzing your resume... Please wait",
+                success: "✅ The report has been sent to your email!",
+                whatsapp: "Send Message"
+            },
+            ar: {
+                title: "تقرير مطابقة الوظيفة",
+                subtitle: "خدمات السيرة الذاتية والتوظيف ✍️<br>نساعدك في الظهور بشكل احترافي 🌟",
+                email_label: "البريد الإلكتروني",
+                job_label: "وصف الوظيفة",
+                job_placeholder: "الصق وصف الوظيفة هنا...",
+                resume_label: "رفع السيرة الذاتية (PDF/DOCX)",
+                submit_btn: "إنشاء التقرير",
+                loading: "⏳ جاري تحليل سيرتك الذاتية... الرجاء الانتظار",
+                success: "✅ تم إرسال التقرير إلى بريدك الإلكتروني!",
+                whatsapp: "إرسال رسالة"
+            }
+        };
+
+        function setLanguage(lang) {
+            const html = document.documentElement;
+            const t = translations[lang];
+            
+            html.lang = lang;
+            html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    el.innerHTML = t[key];
+                }
+            });
+            
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (t[key]) {
+                    el.placeholder = t[key];
+                }
+            });
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLanguage(btn.getAttribute('data-lang'));
+            });
+        });
+
+        setLanguage('en');
+
         document.getElementById('cvForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const loading = document.getElementById('loading');
             const success = document.getElementById('success');
-            const button = document.querySelector('button');
+            const button = document.querySelector('.submit-btn');
             
             loading.style.display = 'block';
             success.style.display = 'none';
@@ -279,7 +462,7 @@
                 
             } catch (error) {
                 loading.style.display = 'none';
-                alert('خطأ: ' + error.message);
+                alert('Error: ' + error.message);
                 button.disabled = false;
             }
         });
