@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career CV - Job Match Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .form-container {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        h1 { text-align: center; margin-bottom: 10px; font-size: 2.5em; }
+        .subtitle { text-align: center; color: #a0a0a0; margin-bottom: 40px; }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; color: #667eea; font-weight: 600; }
+        input[type="email"], input[type="file"], textarea {
+            width: 100%; padding: 15px; border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05); color: white; font-size: 1em;
+        }
+        textarea { min-height: 150px; resize: vertical; }
+        input::placeholder, textarea::placeholder { color: #666; }
+        button {
+            width: 100%; padding: 18px; border-radius: 15px; border: none;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white; font-size: 1.2em; font-weight: 600; cursor: pointer;
+        }
+        button:hover { opacity: 0.9; }
+        .loading, .success { display: none; text-align: center; margin-top: 20px; }
+        .success { color: #2ecc71; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Career CV</h1>
+        <p class="subtitle">Get Your Job Match Report</p>
+        
+        <form id="cvForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Your Email</label>
+                <input type="email" name="customer_email" placeholder="your@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Job Description</label>
+                <textarea name="job_description" placeholder="Paste the job description here..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Upload Resume (PDF/DOCX)</label>
+                <input type="file" name="resume" accept=".pdf,.docx" required>
+            </div>
+            
+            <button type="submit">Generate Report</button>
+            
+            <div class="loading" id="loading">Analyzing... Please wait ⏳</div>
+            <div class="success" id="success">✅ Report sent to your email!</div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('cvForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('success').style.display = 'none';
+            
+            const formData = new FormData(this);
+            
+            try {
+                await fetch('https://n8n.srv1531563.hstgr.cloud/webhook/career-cv-job-match', {
+                    method: 'POST',
+                    body: formData
+                });
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('success').style.display = 'block';
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
