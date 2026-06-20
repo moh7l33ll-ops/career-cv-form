@@ -11,7 +11,7 @@
         
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            background: linear-gradient(135deg, #1a5f2a 0%, #2d8a4e 50%, #3d9b5f 100%);
             color: #1e293b;
             min-height: 100vh;
             display: flex;
@@ -26,7 +26,8 @@
             padding: 50px;
             max-width: 600px;
             width: 100%;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            border: 3px solid #c9a84c;
         }
         
         .logo {
@@ -40,18 +41,21 @@
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 15px;
-            border: 3px solid #3b82f6;
+            border: 4px solid #c9a84c;
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.4);
         }
         
         .logo h1 {
-            color: #1e3a8a;
-            font-size: 2em;
+            color: #1a5f2a;
+            font-size: 2.2em;
             margin-bottom: 5px;
+            font-weight: 700;
         }
         
         .logo p {
-            color: #64748b;
-            font-size: 1.1em;
+            color: #c9a84c;
+            font-size: 1.2em;
+            font-weight: 600;
         }
         
         .subtitle {
@@ -59,6 +63,7 @@
             color: #64748b;
             margin-bottom: 40px;
             font-size: 1.1em;
+            line-height: 1.6;
         }
         
         .form-group {
@@ -68,8 +73,8 @@
         label {
             display: block;
             margin-bottom: 10px;
-            color: #1e3a8a;
-            font-weight: 600;
+            color: #1a5f2a;
+            font-weight: 700;
             font-size: 1.1em;
         }
         
@@ -84,12 +89,13 @@
             color: #1e293b;
             font-size: 1em;
             font-family: 'Cairo', sans-serif;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
         
         input:focus,
         textarea:focus {
-            border-color: #3b82f6;
+            border-color: #c9a84c;
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
             outline: none;
         }
         
@@ -108,18 +114,18 @@
             padding: 18px;
             border-radius: 15px;
             border: none;
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            background: linear-gradient(135deg, #1a5f2a, #c9a84c);
             color: white;
             font-size: 1.2em;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
             font-family: 'Cairo', sans-serif;
         }
         
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(201, 168, 76, 0.4);
         }
         
         .loading, .success {
@@ -131,8 +137,8 @@
         }
         
         .loading {
-            background: #dbeafe;
-            color: #1e3a8a;
+            background: #dcfce7;
+            color: #1a5f2a;
         }
         
         .success {
@@ -140,22 +146,52 @@
             color: #166534;
         }
         
-        .social-links {
+        .footer {
             text-align: center;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+            border-top: 2px solid #c9a84c;
+        }
+        
+        .footer .contact {
+            color: #1a5f2a;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .footer .contact a {
+            color: #c9a84c;
+            text-decoration: none;
+        }
+        
+        .footer .info {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .footer .legal {
+            color: #94a3b8;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+        
+        .social-links {
+            text-align: center;
+            margin-top: 20px;
         }
         
         .social-links a {
-            color: #64748b;
+            color: #1a5f2a;
             text-decoration: none;
             margin: 0 10px;
             font-size: 0.9em;
+            font-weight: 600;
         }
         
         .social-links a:hover {
-            color: #3b82f6;
+            color: #c9a84c;
         }
     </style>
 </head>
@@ -167,7 +203,10 @@
             <p>تقرير مطابقة الوظيفة</p>
         </div>
         
-        <p class="subtitle">احصل على تحليل احترافي لمطابقة سيرتك الذاتية مع الوظيفة</p>
+        <p class="subtitle">
+            CV & Recruitment Services ✍️<br>
+            Helping you stand out professionally 🌟
+        </p>
         
         <form id="cvForm" enctype="multipart/form-data">
             <div class="form-group">
@@ -195,6 +234,18 @@
                 ✅ تم إرسال التقرير إلى بريدك الإلكتروني!
             </div>
         </form>
+        
+        <div class="footer">
+            <div class="contact">
+                📞 <a href="https://wa.me/971545136410" target="_blank">+971 54 513 6410</a>
+            </div>
+            <div class="info">
+                الفرع المصري 🇪🇬
+            </div>
+            <div class="legal">
+                CR: 30802 | TRN: 773-323-384
+            </div>
+        </div>
         
         <div class="social-links">
             <a href="https://www.facebook.com/profile.php?id=61571549710838" target="_blank">Facebook</a>
