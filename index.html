@@ -218,30 +218,12 @@
             fill: white;
         }
         
-        .flags {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+        .region-text {
+            color: #1a5f2a;
+            font-weight: 600;
+            font-size: 0.95em;
             margin-bottom: 15px;
-        }
-        
-        .flag {
-            width: 40px;
-            height: 30px;
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            transition: transform 0.3s;
-        }
-        
-        .flag:hover {
-            transform: scale(1.1);
-        }
-        
-        .flag svg {
-            width: 100%;
-            height: 100%;
-            display: block;
+            letter-spacing: 0.5px;
         }
         
         .footer .legal {
@@ -330,50 +312,7 @@
                 <span data-i18n="whatsapp">Send Message</span>
             </a>
             
-            <div class="flags">
-                <div class="flag" title="Saudi Arabia">
-                    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="900" height="600" fill="#005430"/>
-                        <g fill="white" transform="translate(450,300)">
-                            <path d="M-180,-80 C-170,-90 -160,-85 -150,-80 C-140,-75 -130,-80 -120,-85 C-110,-90 -100,-85 -90,-80 C-80,-75 -70,-80 -60,-85 C-50,-90 -40,-85 -30,-80 C-20,-75 -10,-80 0,-85 C10,-90 20,-85 30,-80 C40,-75 50,-80 60,-85 C70,-90 80,-85 90,-80 C100,-75 110,-80 120,-85 C130,-90 140,-85 150,-80 C160,-75 170,-80 180,-85 L180,-70 C170,-65 160,-60 150,-55 C140,-50 130,-55 120,-60 C110,-65 100,-60 90,-55 C80,-50 70,-55 60,-60 C50,-65 40,-60 30,-55 C20,-50 10,-55 0,-60 C-10,-65 -20,-60 -30,-55 C-40,-50 -50,-55 -60,-60 C-70,-65 -80,-60 -90,-55 C-100,-50 -110,-55 -120,-60 C-130,-65 -140,-60 -150,-55 C-160,-50 -170,-55 -180,-60 Z" opacity="0"/>
-                            <text x="0" y="-30" font-size="90" fill="white" text-anchor="middle" font-family="serif" font-weight="bold">لا إله إلا الله محمد رسول الله</text>
-                            <path d="M-100,60 L100,60 L95,65 L-95,65 Z" fill="white"/>
-                            <path d="M95,60 L110,62.5 L95,65 Z" fill="white"/>
-                            <circle cx="110" cy="62.5" r="3" fill="white"/>
-                        </g>
-                    </svg>
-                </div>
-                <div class="flag" title="UAE">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
-                        <rect width="12" height="6" fill="#00843d"/>
-                        <rect width="12" height="4" y="2" fill="#fff"/>
-                        <rect width="12" height="2" y="4" fill="#000"/>
-                        <rect width="3" height="6" fill="#c8102e"/>
-                    </svg>
-                </div>
-                <div class="flag" title="Egypt">
-                    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="900" height="200" fill="#C8102E"/>
-                        <rect y="200" width="900" height="200" fill="white"/>
-                        <rect y="400" width="900" height="200" fill="#000"/>
-                        <g transform="translate(450,300)">
-                            <path d="M0,-55 L8,-35 L30,-35 L12,-20 L18,0 L0,-12 L-18,0 L-12,-20 L-30,-35 L-8,-35 Z" fill="#FFCD00" stroke="#FFCD00" stroke-width="1"/>
-                            <path d="M0,-40 L5,-25 L20,-25 L8,-15 L12,0 L0,-10 L-12,0 L-8,-15 L-20,-25 L-5,-25 Z" fill="none" stroke="#FFCD00" stroke-width="0.5"/>
-                            <rect x="-3" y="-5" width="6" height="15" fill="#FFCD00"/>
-                            <rect x="-8" y="10" width="16" height="3" fill="#FFCD00"/>
-                            <rect x="-12" y="14" width="24" height="3" fill="#FFCD00"/>
-                            <rect x="-16" y="18" width="32" height="3" fill="#FFCD00"/>
-                            <text x="0" y="32" font-size="6" fill="#FFCD00" text-anchor="middle">جمهورية مصر العربية</text>
-                        </g>
-                    </svg>
-                </div>
-                <div class="flag" title="Qatar">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 504 198">
-                        <rect width="504" height="198" fill="#8a1538"/>
-                        <path fill="white" d="M144 198H0V0h144l36 11-36 11 36 11-36 11 36 11-36 11 36 11-36 11 36 11-36 11 36 11-36 11 36 11-36 11 36 11-36 11 36 11-36 11 36 11-36 11 36 11-36 11"/>
-                    </svg>
-                </div>
-            </div>
+            <div class="region-text" data-i18n="region">Serving clients across the Middle East</div>
             
             <div class="legal">
                 CR: 30802 | TRN: 773-323-384
@@ -398,7 +337,8 @@
                 submit_btn: "Generate Report",
                 loading: "⏳ Analyzing your resume... Please wait",
                 success: "✅ The report has been sent to your email!",
-                whatsapp: "Send Message"
+                whatsapp: "Send Message",
+                region: "Serving clients across the Middle East"
             },
             ar: {
                 title: "تقرير مطابقة الوظيفة",
@@ -410,7 +350,8 @@
                 submit_btn: "إنشاء التقرير",
                 loading: "⏳ جاري تحليل سيرتك الذاتية... الرجاء الانتظار",
                 success: "✅ تم إرسال التقرير إلى بريدك الإلكتروني!",
-                whatsapp: "إرسال رسالة"
+                whatsapp: "إرسال رسالة",
+                region: "نخدم عملاءنا في جميع أنحاء الشرق الأوسط"
             }
         };
 
