@@ -1,11 +1,10 @@
-
-html_content = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAREER CV - Job Match Report</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     </script>
@@ -150,25 +149,6 @@ html_content = '''<!DOCTYPE html>
             color: #94a3b8;
         }
         
-        .file-status {
-            margin-top: 8px;
-            font-size: 0.9em;
-            font-weight: 600;
-            min-height: 20px;
-        }
-        
-        .file-status.extracting {
-            color: #c9a84c;
-        }
-        
-        .file-status.success {
-            color: #1a5f2a;
-        }
-        
-        .file-status.error {
-            color: #dc2626;
-        }
-        
         .submit-btn {
             width: 100%;
             padding: 18px;
@@ -183,23 +163,39 @@ html_content = '''<!DOCTYPE html>
             font-family: 'Poppins', 'Cairo', sans-serif;
         }
         
-        .submit-btn:hover:not(:disabled) {
+        .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px -5px rgba(201, 168, 76, 0.4);
         }
-        
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .file-status {
+            margin-top: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+            min-height: 20px;
         }
-        
-        .loading, .success, .error-msg {
+        .file-status.extracting { color: #c9a84c; }
+        .file-status.success { color: #1a5f2a; }
+        .file-status.error { color: #dc2626; }
+        .error-msg {
             display: none;
             text-align: center;
             margin-top: 20px;
             padding: 15px;
             border-radius: 10px;
+            background: #fee2e2;
+            color: #dc2626;
             font-weight: 600;
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .loading, .success {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
         }
         
         .loading {
@@ -210,11 +206,6 @@ html_content = '''<!DOCTYPE html>
         .success {
             background: #dcfce7;
             color: #166534;
-        }
-        
-        .error-msg {
-            background: #fee2e2;
-            color: #dc2626;
         }
         
         .footer {
@@ -312,7 +303,7 @@ html_content = '''<!DOCTYPE html>
             Helping you stand out professionally 🌟
         </p>
         
-        <form id="cvForm">
+        <form id="cvForm" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="email" data-i18n="email_label">Email</label>
                 <input type="email" id="email" name="customer_email" placeholder="your@email.com" required>
@@ -326,11 +317,9 @@ html_content = '''<!DOCTYPE html>
             <div class="form-group">
                 <label for="resume" data-i18n="resume_label">Upload Resume (PDF/DOCX)</label>
                 <input type="file" id="resume" name="resume" accept=".pdf,.docx" required>
-                <div class="file-status" id="fileStatus"></div>
+            <div class="file-status" id="fileStatus"></div>
+                <input type="hidden" id="resumeText" name="resume_text">
             </div>
-            
-            <!-- Hidden field for extracted text -->
-            <input type="hidden" id="resumeText" name="resume_text">
             
             <button type="submit" class="submit-btn" data-i18n="submit_btn">Generate Report</button>
             
@@ -341,7 +330,6 @@ html_content = '''<!DOCTYPE html>
             <div class="success" id="success" data-i18n="success">
                 ✅ The report has been sent to your email!
             </div>
-            
             <div class="error-msg" id="errorMsg"></div>
         </form>
         
@@ -379,7 +367,7 @@ html_content = '''<!DOCTYPE html>
                 loading: "⏳ Analyzing your resume... Please wait",
                 success: "✅ The report has been sent to your email!",
                 whatsapp: "Send Message",
-                region: "Serving clients across the Middle East",
+                region: "Serving clients across the Middle East"
                 extracting: "⏳ Extracting text from PDF...",
                 extracted: "✅ Text extracted ({chars} characters)",
                 extract_error: "❌ Could not extract text. Please try another file.",
@@ -397,7 +385,7 @@ html_content = '''<!DOCTYPE html>
                 loading: "⏳ جاري تحليل سيرتك الذاتية... الرجاء الانتظار",
                 success: "✅ تم إرسال التقرير إلى بريدك الإلكتروني!",
                 whatsapp: "إرسال رسالة",
-                region: "نخدم عملاءنا في جميع أنحاء الشرق الأوسط",
+                region: "نخدم عملاءنا في جميع أنحاء الشرق الأوسط"
                 extracting: "⏳ جاري استخراج النص من PDF...",
                 extracted: "✅ تم استخراج النص ({chars} حرف)",
                 extract_error: "❌ تعذر استخراج النص. جرب ملفًا آخر.",
@@ -406,9 +394,7 @@ html_content = '''<!DOCTYPE html>
             }
         };
 
-        let currentLang = 'en';
-
-        function setLanguage(lang) {
+            function setLanguage(lang) {
             currentLang = lang;
             const html = document.documentElement;
             const t = translations[lang];
@@ -442,8 +428,9 @@ html_content = '''<!DOCTYPE html>
         });
 
         setLanguage('en');
+        let currentLang = 'en';
 
-        // Extract text from PDF using PDF.js
+                // Extract text from PDF using PDF.js
         async function extractTextFromPDF(file) {
             const arrayBuffer = await file.arrayBuffer();
             const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
@@ -455,12 +442,12 @@ html_content = '''<!DOCTYPE html>
                 const pageText = content.items
                     .map(item => item.str)
                     .join(' ');
-                text += pageText + '\\n\\n';
+                text += pageText + '\n\n';
             }
             
             return text
-                .replace(/\\s+/g, ' ')
-                .replace(/[^\\w\\s.,;:!?@#$%&*()\\-+=\\/\\\\]/g, '')
+                .replace(/\s+/g, ' ')
+                .replace(/[^\w\s.,;:!?@#$%&*()\-+=\/\\]/g, '')
                 .trim();
         }
 
@@ -483,7 +470,6 @@ html_content = '''<!DOCTYPE html>
                 if (file.type === 'application/pdf') {
                     text = await extractTextFromPDF(file);
                 } else {
-                    // For DOCX or other files, read as text (limited support)
                     text = await file.text();
                 }
                 
@@ -526,19 +512,15 @@ html_content = '''<!DOCTYPE html>
             errorMsg.style.display = 'none';
             button.disabled = true;
             
-            const payload = {
-                customer_email: document.getElementById('email').value,
-                job_description: document.getElementById('job_description').value,
-                resume_text: resumeText
-            };
+            const formData = new FormData();
+            formData.append('customer_email', document.getElementById('email').value);
+            formData.append('job_description', document.getElementById('job_description').value);
+            formData.append('resume_text', resumeText);
             
             try {
                 const response = await fetch('https://n8n.srv1531563.hstgr.cloud/webhook/career-cv-job-match', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
+                    body: formData
                 });
                 
                 const result = await response.json();
@@ -563,13 +545,3 @@ html_content = '''<!DOCTYPE html>
                 button.disabled = false;
             }
         });
-    </script>
-</body>
-</html>'''
-
-# Save the file
-with open('/mnt/agents/output/index.html', 'w', encoding='utf-8') as f:
-    f.write(html_content)
-
-print("File saved successfully!")
-print(f"File size: {len(html_content)} characters")
