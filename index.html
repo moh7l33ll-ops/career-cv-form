@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAREER CV - Job Match Report</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     </script>
@@ -167,45 +168,52 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 25px -5px rgba(201, 168, 76, 0.4);
         }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         .file-status {
             margin-top: 8px;
             font-size: 0.9em;
             font-weight: 600;
             min-height: 20px;
         }
+        
         .file-status.extracting { color: #c9a84c; }
         .file-status.success { color: #1a5f2a; }
         .file-status.error { color: #dc2626; }
-        .error-msg {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #fee2e2;
-            color: #dc2626;
-            font-weight: 600;
-        }
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .loading, .success {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
+        
+        .file-hint {
+            margin-top: 6px;
+            font-size: 0.8em;
+            color: #94a3b8;
         }
         
-        .loading {
+        .alert {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .alert-loading {
             background: #dcfce7;
             color: #1a5f2a;
         }
         
-        .success {
+        .alert-success {
             background: #dcfce7;
             color: #166534;
+        }
+        
+        .alert-error {
+            background: #fee2e2;
+            color: #dc2626;
         }
         
         .footer {
@@ -284,6 +292,7 @@
             right: 20px;
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <div class="form-container">
@@ -317,20 +326,21 @@
             <div class="form-group">
                 <label for="resume" data-i18n="resume_label">Upload Resume (PDF/DOCX)</label>
                 <input type="file" id="resume" name="resume" accept=".pdf,.docx" required>
-            <div class="file-status" id="fileStatus"></div>
+                <div class="file-status" id="fileStatus"></div>
                 <input type="hidden" id="resumeText" name="resume_text">
             </div>
             
             <button type="submit" class="submit-btn" data-i18n="submit_btn">Generate Report</button>
             
-            <div class="loading" id="loading" data-i18n="loading">
+            <div class="alert alert-loading" id="loading" data-i18n="loading">
                 ⏳ Analyzing your resume... Please wait
             </div>
             
-            <div class="success" id="success" data-i18n="success">
+            <div class="alert alert-success" id="success" data-i18n="success">
                 ✅ The report has been sent to your email!
             </div>
-            <div class="error-msg" id="errorMsg"></div>
+            
+            <div class="alert alert-error" id="errorMsg"></div>
         </form>
         
         <div class="footer">
@@ -355,6 +365,9 @@
     </div>
 
     <script>
+        // ==========================
+        // 1. TRANSLATIONS
+        // ==========================
         const translations = {
             en: {
                 title: "Job Match Report",
@@ -367,12 +380,13 @@
                 loading: "⏳ Analyzing your resume... Please wait",
                 success: "✅ The report has been sent to your email!",
                 whatsapp: "Send Message",
-                region: "Serving clients across the Middle East"
-                extracting: "⏳ Extracting text from PDF...",
+                region: "Serving clients across the Middle East",
+                extracting: "⏳ Extracting text from file...",
                 extracted: "✅ Text extracted ({chars} characters)",
                 extract_error: "❌ Could not extract text. Please try another file.",
                 no_text: "❌ Could not read resume text. Please check your file.",
-                submit_error: "❌ Error: {error}"
+                submit_error: "❌ Error: {error}",
+                wrong_format: "❌ Only PDF and DOCX files are supported."
             },
             ar: {
                 title: "تقرير مطابقة الوظيفة",
@@ -385,16 +399,25 @@
                 loading: "⏳ جاري تحليل سيرتك الذاتية... الرجاء الانتظار",
                 success: "✅ تم إرسال التقرير إلى بريدك الإلكتروني!",
                 whatsapp: "إرسال رسالة",
-                region: "نخدم عملاءنا في جميع أنحاء الشرق الأوسط"
-                extracting: "⏳ جاري استخراج النص من PDF...",
+                region: "نخدم عملاءنا في جميع أنحاء الشرق الأوسط",
+                extracting: "⏳ جاري استخراج النص من الملف...",
                 extracted: "✅ تم استخراج النص ({chars} حرف)",
                 extract_error: "❌ تعذر استخراج النص. جرب ملفًا آخر.",
                 no_text: "❌ تعذر قراءة نص السيرة الذاتية. تأكد من الملف.",
-                submit_error: "❌ خطأ: {error}"
+                submit_error: "❌ خطأ: {error}",
+                wrong_format: "❌ يُدعم فقط ملفات PDF و DOCX."
             }
         };
 
-            function setLanguage(lang) {
+        // ==========================
+        // 2. GLOBAL STATE
+        // ==========================
+        let currentLang = 'en';
+
+        // ==========================
+        // 3. LANGUAGE SWITCHER
+        // ==========================
+        function setLanguage(lang) {
             currentLang = lang;
             const html = document.documentElement;
             const t = translations[lang];
@@ -427,13 +450,14 @@
             });
         });
 
-        setLanguage('en');
-        let currentLang = 'en';
-
-                // Extract text from PDF using PDF.js
+        // ==========================
+        // 4. FILE TEXT EXTRACTION
+        // ==========================
+        
+        // Extract text from PDF using PDF.js
         async function extractTextFromPDF(file) {
             const arrayBuffer = await file.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
             
             let text = '';
             for (let i = 1; i <= pdf.numPages; i++) {
@@ -447,11 +471,21 @@
             
             return text
                 .replace(/\s+/g, ' ')
-                .replace(/[^\w\s.,;:!?@#$%&*()\-+=\/\\]/g, '')
                 .trim();
         }
 
-        // Handle file selection
+        // Extract text from DOCX using Mammoth
+        async function extractTextFromDOCX(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const result = await mammoth.extractRawText({ arrayBuffer });
+            return result.value
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        // ==========================
+        // 5. FILE INPUT HANDLING
+        // ==========================
         const fileInput = document.getElementById('resume');
         const fileStatus = document.getElementById('fileStatus');
         const resumeTextField = document.getElementById('resumeText');
@@ -461,16 +495,30 @@
             if (!file) return;
             
             const t = translations[currentLang];
+            const fileName = file.name.toLowerCase();
+            
+            // Validate file extension
+            const isPDF = fileName.endsWith('.pdf');
+            const isDOCX = fileName.endsWith('.docx');
+            
+            if (!isPDF && !isDOCX) {
+                fileStatus.className = 'file-status error';
+                fileStatus.textContent = t.wrong_format;
+                resumeTextField.value = '';
+                fileInput.value = '';
+                return;
+            }
+            
             fileStatus.className = 'file-status extracting';
             fileStatus.textContent = t.extracting;
             
             try {
                 let text = '';
                 
-                if (file.type === 'application/pdf') {
+                if (isPDF) {
                     text = await extractTextFromPDF(file);
-                } else {
-                    text = await file.text();
+                } else if (isDOCX) {
+                    text = await extractTextFromDOCX(file);
                 }
                 
                 if (!text || text.length < 50) {
@@ -485,63 +533,88 @@
                 fileStatus.className = 'file-status error';
                 fileStatus.textContent = t.extract_error;
                 resumeTextField.value = '';
-                console.error('PDF extraction error:', error);
+                fileInput.value = '';
+                console.error('File extraction error:', error);
             }
         });
 
-        // Handle form submission
+        // ==========================
+        // 6. FORM SUBMISSION
+        // ==========================
         document.getElementById('cvForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const loading = document.getElementById('loading');
-            const success = document.getElementById('success');
-            const errorMsg = document.getElementById('errorMsg');
+            const loadingEl = document.getElementById('loading');
+            const successEl = document.getElementById('success');
+            const errorMsgEl = document.getElementById('errorMsg');
             const button = document.querySelector('.submit-btn');
             const t = translations[currentLang];
             
             const resumeText = resumeTextField.value;
             
+            // Validate resume text
             if (!resumeText || resumeText.length < 50) {
-                errorMsg.textContent = t.no_text;
-                errorMsg.style.display = 'block';
+                errorMsgEl.textContent = t.no_text;
+                errorMsgEl.style.display = 'block';
                 return;
             }
             
-            loading.style.display = 'block';
-            success.style.display = 'none';
-            errorMsg.style.display = 'none';
+            // Show loading
+            loadingEl.style.display = 'block';
+            successEl.style.display = 'none';
+            errorMsgEl.style.display = 'none';
             button.disabled = true;
             
-            const formData = new FormData();
-            formData.append('customer_email', document.getElementById('email').value);
-            formData.append('job_description', document.getElementById('job_description').value);
-            formData.append('resume_text', resumeText);
+            // Build payload
+            const payload = {
+                customer_email: document.getElementById('email').value.trim(),
+                job_description: document.getElementById('job_description').value.trim(),
+                resume_text: resumeText
+            };
             
             try {
                 const response = await fetch('https://n8n.srv1531563.hstgr.cloud/webhook/career-cv-job-match', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
                 });
                 
-                const result = await response.json();
+                let result = {};
+                try {
+                    result = await response.json();
+                } catch (jsonErr) {
+                    // Response is not JSON
+                }
                 
-                loading.style.display = 'none';
+                loadingEl.style.display = 'none';
                 
                 if (response.ok) {
-                    success.style.display = 'block';
+                    successEl.style.display = 'block';
                     this.reset();
                     fileStatus.textContent = '';
                     resumeTextField.value = '';
                 } else {
-                    errorMsg.textContent = t.submit_error.replace('{error}', result.message || 'Unknown error');
-                    errorMsg.style.display = 'block';
+                    const errorMessage = result.message || result.error || 'HTTP ' + response.status;
+                    errorMsgEl.textContent = t.submit_error.replace('{error}', errorMessage);
+                    errorMsgEl.style.display = 'block';
                 }
                 
             } catch (error) {
-                loading.style.display = 'none';
-                errorMsg.textContent = t.submit_error.replace('{error}', error.message);
-                errorMsg.style.display = 'block';
+                loadingEl.style.display = 'none';
+                errorMsgEl.textContent = t.submit_error.replace('{error}', error.message || 'Network error');
+                errorMsgEl.style.display = 'block';
             } finally {
                 button.disabled = false;
             }
         });
+
+        // ==========================
+        // 7. INIT
+        // ==========================
+        setLanguage('en');
+    </script>
+</body>
+</html>
